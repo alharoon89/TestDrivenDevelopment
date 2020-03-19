@@ -10,12 +10,12 @@ namespace DeskBooker.Core.Processor
     {
         private readonly Mock<IDeskBookingRepository> _deskBookingRepository;
         private readonly DeskBookingRequestProcessor _processor;
-        private readonly DeskbookingRequest _request;
+        private readonly DeskBookingRequest _request;
         public DeskBookingRequestProcessorTest()
         {
             _deskBookingRepository = new Mock<IDeskBookingRepository>();
             this._processor = new DeskBookingRequestProcessor(_deskBookingRepository.Object);
-            _request = new DeskbookingRequest()
+            _request = new DeskBookingRequest()
             {
                 FirstName = "Ali",
                 LastName = "Raza",

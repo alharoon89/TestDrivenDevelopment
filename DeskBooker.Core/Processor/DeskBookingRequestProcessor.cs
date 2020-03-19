@@ -13,7 +13,7 @@ namespace DeskBooker.Core.Processor
             _deskBookingRepository = deskBookingRepository;
         }
 
-        public DeskBookingResult BookDesk(DeskbookingRequest request)
+        public DeskBookingResult BookDesk(DeskBookingRequest request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request));
@@ -24,7 +24,7 @@ namespace DeskBooker.Core.Processor
             
         }
 
-        private T Create<T>(DeskbookingRequest request) where T : DeskBookingBase,new()
+        private T Create<T>(DeskBookingRequest request) where T : DeskBookingBase,new()
         {
             return new T
             {
