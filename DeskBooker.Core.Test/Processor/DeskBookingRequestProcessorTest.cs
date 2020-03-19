@@ -68,7 +68,7 @@ namespace DeskBooker.Core.Processor
             Assert.Equal(_request.LastName, savedDeskBooking.LastName);
             Assert.Equal(_request.Email, savedDeskBooking.Email);
             Assert.Equal(_request.Date, savedDeskBooking.Date);
-            Assert.Equal(_availableDesk.First().Id , savedDeskBooking.DeskId);
+            Assert.Equal(_availableDesk.First().Id, savedDeskBooking.DeskId);
         }
 
         [Fact]
@@ -79,6 +79,21 @@ namespace DeskBooker.Core.Processor
             _processor.BookDesk(_request);
 
             _deskBookingRepositoryMock.Verify(x => x.Save(It.IsAny<DeskBooking>()), Times.Never);
+        }
+
+        [Theory]
+        [InlineData(DeskBookingResultCode.Success, true)]
+        [InlineData(DeskBookingResultCode.NotDeskAvailable, false)]
+        public void ShouldReturnExpectedRResult(DeskBookingResultCode expectedResultCode, bool isDeskAvailable)
+        {
+            if (!isDeskAvailable)
+            {
+                _availableDesk.Clear();
+            }
+
+            var result = _processor.BookDesk(_request);
+
+            Assert.Equal(expectedResultCode.ToString() , result.Code.ToString());
         }
     }
 }
